@@ -195,48 +195,66 @@ bottom: 0;
     display: flex;
     justify-content:space-between;
 }
-
-.product__name{
-   width: 510px; 
-   text-align: center;
-   padding-top: 41px;
-   
-
+.product__name {
+  width: 510px;
+  text-align: center;
+  position: relative;
+  margin: 80px auto;
 }
 
-.product__name-item{
-    font-family: 'Roboto Slab';
-    font-size: 24px;
-    line-height: 32px;
-    cursor: pointer;
+.product__list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-.product__name-item.slick-current{
-    font-weight: 700px;
-    font-size: 36px;
-    color: #001E64;
-    line-height: 44px;
-
+.product__list .slick-slide {
+  padding-bottom: 6px; /* пространство для стрелок */
 }
 
-.product__name-item + .product__name-item{
-    margin-top: 30px;
-    
+.product__name-item {
+  font-family: 'Roboto Slab', serif;
+  font-size: 24px;
+  line-height: 32px;
+  cursor: pointer;
+  text-align: center;
+  white-space: normal;
+  word-break: break-word;
 }
 
-.product-prev{
-    position:absolute; 
-    top:0;
-    left: 50%;
-    transform: translateX(-50%);
+.product__name-item.slick-current {
+  font-weight: 700;
+  font-size: 36px;
+  color: #001E64;
+  line-height: 44px;
 }
+
+/* стрелки */
 .product-prev,
-.product-next{
-    border: none;
-    background-color: transparent;
-    padding: 0;
-    cursor: pointer;
+.product-next {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  z-index: 10;
 }
+
+.product-prev {
+  top: -50px;
+}
+
+.product-next {
+  bottom: -50px;
+}
+
+.product-prev img,
+.product-next img {
+  width: 25px;
+  height: auto;
+}
+
 
 .product__content{
     width: 600px;
@@ -488,6 +506,98 @@ justify-content: space-around;
     background-color: #001E64;
 }
 
+/* Базовое затемнение */
+.modal {
+  display: none; 
+  position: fixed;
+  z-index: 2000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center; 
+  align-items: center;
+  padding: 15px; /* отступы для мобилок */
+}
+
+/* Само окно */
+.modal__content {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 500px; /* больше чем было */
+  text-align: center;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  animation: modalFade 0.3s ease;
+}
+
+/* Заголовок */
+.modal__title {
+  font-family: 'Roboto Slab', serif;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #001E64;
+}
+
+/* Кнопка закрытия */
+.modal__close {
+  position: absolute;
+  top: 15px; right: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #001E64;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.modal__close:hover {
+  transform: scale(1.2);
+}
+
+/* Форма */
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.modal__form label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #001E64;
+}
+
+.modal__form input,
+.modal__form select {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  width: 100%;
+  font-size: 16px;
+}
+
+/* Кнопка отправки */
+.modal__submit {
+  background: #001E64;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  transition: all .3s;
+}
+.modal__submit:hover {
+  background: #00308a;
+}
+
+@keyframes modalFade {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
 
 @media (max-width: 1160px){
     .product__name{
@@ -588,48 +698,64 @@ justify-content: space-around;
     }
 
 }
-@media (max-width: 890px){
-    .product__inner{
-        display:block;
-    }
-    .product__content{
-        margin: 0 auto;
-    }
-    .product__name{
-        width: 100%;
-        padding-top: 0;
-        margin-bottom: 80px;
-    }
+@media (max-width: 890px) {
+  .product__inner {
+    display: block;
+  }
 
-    .product__name-item + .product__name-item{
-        margin-top: 0;
-    }
-    .product__name-item.slick-current{
-        line-height: 44px;
-    }
+  .product__content {
+    margin: 0 auto;
+  }
 
-    .product__name .slick-dots{
-        left:0;
-        right:0;
-        flex-direction: row;
-        justify-content: center;
-    }
+  /* сам список продуктов */
+  .product__name {
+    width: 100%;
+    padding-top: 0;
+    margin-bottom: 80px;
+    position: relative;
+  }
 
-    .product__name .slick-dots button{
-        width:10px;
-        height:10px;
-        font-size: 0;
-        padding:0;
-        background-color:grey;
-        border-radius: 50%;
-        margin: 0 5px;
-    }
-    
-    .product__name .slick-active button{
-        background-color: #001E64
-    }
+  .product__list {
+    flex-direction: row; /* горизонтальный слайдер */
+    gap: 15px;
+  }
 
+  .product__name-item + .product__name-item {
+    margin-top: 0;
+  }
+
+  .product__name-item.slick-current {
+    line-height: 44px;
+    font-size: 28px; /* чуть меньше на мобильных */
+  }
+
+  /* точки слайдера */
+  .product__name .slick-dots {
+    left: 0;
+    right: 0;
+    bottom: -30px; /* под списком */
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .product__name .slick-dots button {
+    width: 10px;
+    height: 10px;
+    font-size: 0;
+    padding: 0;
+    background-color: grey;
+    border-radius: 50%;
+    margin: 0 5px;
+  }
+
+  .product__name .slick-active button {
+    background-color: #001E64;
+  }
+
+ 
 }
+
+
 @media (max-width: 745px){
     .title{
         font-size: 50px;
@@ -677,6 +803,19 @@ justify-content: space-around;
     .product__content-box{
         width: 100%;
     }
+
+    .modal__content {
+    max-width: 100%;
+    border-radius: 12px;
+    padding: 20px 15px;
+  }
+  .modal__title {
+    font-size: 22px;
+  }
+  .modal__submit {
+    font-size: 16px;
+    padding: 12px;
+  }
 }
 
 
@@ -710,7 +849,27 @@ justify-content: space-around;
     .product{
         padding-top: 50px;
     }
+
+    .product__name-item {
+        font-size: 20px;
+        line-height: 26px;
+    }
+    .product__list .slick-slide {
+        padding-bottom: 60px; /* больше места на маленьких экранах */
+    }
+
+    /* Дополнительно для совсем маленьких экранов */
+ 
+  .product__list {
+    gap: 10px;
+  }
+
+  .product__name-item.slick-current {
+    font-size: 24px;
+  }
 }
+
+
 
 @media (max-width: 371px){
     .title{
